@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery Life Expectancy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">ITD105</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="card border-secondary mt-3">
+            <div class="card-header">Battery Life Expectancy - Add Data</div>
+            <div class="card-body">
+                <form id="submit_form" method="POST">
+
+                    <div class="row mb-3">
+                      <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Discharge</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="Discharge" name="Discharge" placeholder="Input Discharge">
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Decrement</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="Decrement" name="Decrement" placeholder="Input Decrement">
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Max voltage discharge</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="MVD" name="MVD" placeholder="Input Max voltage discharge">
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Min voltage charge</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="MVC" name="MVC" placeholder="Input Time in seconds">
+                      </div>
+                    </div>
+      
+                    <div class="row mb-3">
+                      <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Time</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="Time" name="Time" placeholder="Input Time in seconds">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Time constant current</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control form-control-sm" id="TCC" name="TCC" placeholder="Input Time in seconds">
+                        </div>
+                      </div>
+        
+                      <div class="row mb-3">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Charging</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control form-control-sm" id="Charging" name="Charging" placeholder="Input Time in seconds">
+                        </div>
+                      </div>
+        
+                      <div class="row mb-3">
+                        <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">RUL</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control form-control-sm" id="RUL" name="RUL" placeholder="Input Time in seconds">
+                        </div>
+                      </div>
+        
+      
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+    
+            <div class="card border-secondary mt-3">
+                <div class="card-header">Battery Life Expectancy - View Data</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="myTable">
+                            <thead>
+                        <tr>
+                          <th>Discharge</th>
+                          <th>Decrement</th>
+                          <th>Max voltage discharge</th>
+                          <th>Min voltage charge</th>
+                          <th>Time</th>
+                          <th>Time constant current</th>
+                          <th>Charging</th>
+                          <th>RUL</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for data in battery_data %}
+                            <tr>
+                                <td>{{ data.discharge }}</td>
+                                <td>{{ data.decrement }}</td>
+                                <td>{{ data.mvd }}</td>
+                                <td>{{ data.mvc }}</td>
+                                <td>{{ data.time }}</td>
+                                <td>{{ data.tcc }}</td>
+                                <td>{{ data.ct }}</td>
+                                <td>{{ data.rul }}</td>
+                    
+                                <td>
+                                    <button class="btn btn-warning edit-button" data-record-id="{{ data.id }}">edit</button>
+                                    <button class="btn btn-danger delete-button" data-record-id="{{ data.id }}">delete</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
+                  </div>
+            </div>
+            </div>
+
+      </div>
+
+
+
+      <!-- Modal -->
+<div class="modal fade modal-dialog modal-dialog-centered" id="updatemodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Update data</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id="updatedata" action="" method="post">
+            <div class="row mb-3">
+                <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Discharge</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" id="Discharge1" name="Discharge1" placeholder="Input Time in seconds">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Decrement</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" id="Decrement1" name="Decrement1" placeholder="Input Time in seconds">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Max voltage discharge</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" id="MVD1" name="MVD1" placeholder="Input Time in seconds">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Min voltage charge</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" id="MVC1" name="MVC1" placeholder="Input Time in seconds">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Time</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" id="Time1" name="Time1" placeholder="Input Time in seconds">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                  <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Time constant current</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="TCC1" name="TCC1" placeholder="Input Time in seconds">
+                  </div>
+                </div>
+  
+                <div class="row mb-3">
+                  <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Charging</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="Charging1" name="Charging1" placeholder="Input Time in seconds">
+                  </div>
+                </div>
+  
+                <div class="row mb-3">
+                  <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">RUL</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" id="RUL1" name="RUL1" placeholder="Input Time in seconds">
+                  </div>
+                </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button class="btn btn-primary update-button" >Update</button>
+        </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+      <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        // DataTable initialization
+        $('#myTable').DataTable();
+
+        // Edit button click event
+        $('.edit-button').on('click', function () {
+            var recordId = $(this).data('record-id');
+
+            // AJAX request to get data for the specific record
+            $.ajax({
+                url: '/get_record/' + recordId,
+                type: 'GET',
+                success: function (data) {
+                    // Store the data in a variable
+                    var recordData = data;
+
+                    // Populate modal form fields with data
+                    $('#updatemodal #Discharge1').val(recordData.discharge);
+                    $('#updatemodal #Decrement1').val(recordData.decrement);
+                    $('#updatemodal #MVD1').val(recordData.mvd);
+                    $('#updatemodal #MVC1').val(recordData.mvc);
+                    $('#updatemodal #Time1').val(recordData.time);
+                    $('#updatemodal #TCC1').val(recordData.tcc);
+                    $('#updatemodal #Charging1').val(recordData.ct);
+                    $('#updatemodal #RUL1').val(recordData.rul);
+
+                    // Set the record id for the update button
+                    $('#updatemodal .btn-primary').data('record-id', recordId);
+
+                    // Show the modal
+                    $('#updatemodal').modal('show');
+                }
+            });
+        });
+
+        // Update button click event
+        $('#updatemodal .btn-primary').on('click', function () {
+            var recordId = $(this).data('record-id');
+            var formData = $('#updatemodal form').serialize();
+
+            // AJAX request to update the record
+            $.ajax({
+                url: '/update_record/' + recordId,
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    // Display a success message or handle the response as needed
+                    console.log(response);
+                    // Close the modal after updating
+                    $('#updatemodal').modal('hide');
+                },
+                error: function (error) {
+                    // Handle errors if needed
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
